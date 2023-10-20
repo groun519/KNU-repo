@@ -1,0 +1,98 @@
+import tkinter
+import random
+
+max_participants = 10
+display_time = 3000
+participants = []
+participants_frame = None
+
+def choose_winner():
+    pick_button.config(state="disabled")
+    if participants:
+        winner = random.choice(participants)
+        result_label.config(text=f"축하합니다, {winner}님! 1등입니다.", fg="blue")
+    else:
+        result_label.config(text="아쉽게도 참가자가 없습니다.", fg="black")
+    root.after(display_time, clear_result)
+    root.after(display_time, enable_pick_button)
+
+def reset_participants():
+    participants.clear()
+    participants_label.config(text="참가자 목록: ")
+    participants_frame.destroy()
+    create_participants_frame()
+
+def add_participant():
+    if len(participants) >= max_participants:
+        max_label.config(text="최대 10명까지만 허용됩니다!", fg="red")
+        root.after(display_time, clear_limit)
+    else:
+        name = entry.get()
+        if name in participants:
+            max_label.config(text="이미 참가한 이름입니다. 다른 이름을 입력해주세요.", fg="red")
+            root.after(display_time, clear_limit)
+        else:
+            participants.append(name)
+            entry.delete(0, tkinter.END)
+            update_participants_grid()
+            max_label.config(text=" ")
+
+def create_participants_frame():
+    global participants_frame
+    participants_frame = tkinter.Frame(root)
+    participants_frame.pack(pady=10, padx=10)
+
+def update_participants_grid():
+    for widget in participants_frame.winfo_children():
+        widget.grid_forget()
+    for i, participant in enumerate(participants):
+        participant_label = tkinter.Label(participants_frame, text=participant, padx=5, pady=5, relief="ridge")
+        participant_label.grid(row=i // 5, column=i % 5, padx=5, pady=5, sticky="w")
+
+def clear_limit():
+    max_label.config(text=" ")
+
+def clear_result():
+    result_label.config(text=" ", fg="black")
+
+def enable_pick_button():
+    pick_button.config(state="normal")
+
+root = tkinter.Tk()
+root.title("랜덤 추첨 프로그램")
+root.geometry("400x400")
+
+frame = tkinter.Frame(root)
+frame.pack(pady=20)
+
+label = tkinter.Label(frame, text="참가자 이름:")
+label.grid(row=0, column=0)
+
+entry = tkinter.Entry(frame)
+entry.grid(row=0, column=1)
+
+add_button = tkinter.Button(frame, text="추가")
+add_button.grid(row=0, column=2)
+
+pick_button = tkinter.Button(root, text="1등 추첨")
+pick_button.pack(pady=10)
+
+reset_button = tkinter.Button(root, text="참가자 초기화")
+reset_button.pack()
+
+result_label = tkinter.Label(root, text="", font=("Helvetica", 14))
+result_label.pack()
+
+participants_label = tkinter.Label(root, text="참가자 목록: ", font=("Helvetica", 12))
+participants_label.pack()
+
+max_label = tkinter.Label(root, text="", font=("Helvetica", 12), fg="red")
+max_label.pack()
+
+pick_button.config(command=choose_winner)
+add_button.config(command=add_participant)
+reset_button.config(command=reset_participants)
+
+create_participants_frame()
+
+root.mainloop()

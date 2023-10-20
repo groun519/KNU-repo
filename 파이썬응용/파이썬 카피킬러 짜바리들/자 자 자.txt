@@ -1,0 +1,76 @@
+import tkinter
+import random
+MAX_PARTS = 10
+DISPLAY_TIME = 3000
+parts = []
+parts_frame = None
+def choose_winner():
+    pick_btn.config(state="disabled")
+    if parts:
+        winner = random.choice(parts)
+        result_label.config(text=f"1등: {winner}", fg="blue")
+    else:
+        result_label.config(text="참가자 없음", fg="black")
+    root.after(DISPLAY_TIME, clear_result)
+    root.after(DISPLAY_TIME, enable_pick_btn)
+def reset_parts():
+    parts.clear()
+    parts_label.config(text="참가자 목록: ")
+    parts_frame.destroy()
+    create_parts_frame()
+def add_part():
+    if len(parts) >= MAX_PARTS:
+        max_label.config(text="최대 10명까지 가능합니다!", fg="red")
+        root.after(DISPLAY_TIME, clear_limit)
+    else:
+        name = entry.get()
+        if name in parts:
+            max_label.config(text="중복된 이름입니다! 다시 입력하세요.", fg="red")
+            root.after(DISPLAY_TIME, clear_limit)
+        else:
+            parts.append(name)
+            entry.delete(0, tkinter.END)
+            update_parts_grid()
+            max_label.config(text=" ")
+def create_parts_frame():
+    global parts_frame
+    parts_frame = tkinter.Frame(root)
+    parts_frame.pack(pady=10, padx=10)
+def update_parts_grid():
+    for widget in parts_frame.winfo_children():
+        widget.grid_forget()
+    for i, part in enumerate(parts):
+        part_label = tkinter.Label(parts_frame, text=part, padx=5, pady=5, relief="ridge")
+        part_label.grid(row=i // 5, column=i % 5, padx=5, pady=5, sticky="w")
+def clear_limit():
+    max_label.config(text=" ")
+def clear_result():
+    result_label.config(text=" ", fg="black")
+def enable_pick_btn():
+    pick_btn.config(state="normal")
+root = tkinter.Tk()
+root.title("랜덤 추첨 프로그램")
+root.geometry("400x400")
+frame = tkinter.Frame(root)
+frame.pack(pady=20)
+label = tkinter.Label(frame, text="이름:")
+label.grid(row=0, column=0)
+entry = tkinter.Entry(frame)
+entry.grid(row=0, column=1)
+add_btn = tkinter.Button(frame, text="추가")
+add_btn.grid(row=0, column=2)
+pick_btn = tkinter.Button(root, text="1등 추첨")
+pick_btn.pack(pady=10)
+reset_btn = tkinter.Button(root, text="초기화")
+reset_btn.pack()
+result_label = tkinter.Label(root, text="", font=("Helvetica", 14))
+result_label.pack()
+parts_label = tkinter.Label(root, text="참가자 목록: ", font=("Helvetica", 12))
+parts_label.pack()
+max_label = tkinter.Label(root, text="", font=("Helvetica", 12), fg="red")
+max_label.pack()
+pick_btn.config(command=choose_winner)
+add_btn.config(command=add_part)
+reset_btn.config(command=reset_parts)
+create_parts_frame()
+root.mainloop()

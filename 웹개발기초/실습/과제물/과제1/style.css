@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, nav, footer {
+    background-color: lightgray;
+    padding: 10px;
+}
+
+.main {
+    display: flex;
+}
+
+.main-section {
+    flex: 4;
+    background-color: lightblue;
+    padding: 10px;
+}
+
+.aside {
+    flex: 1;
+    background-color: lightgreen;
+    padding: 10px;
+}
+
+.article {
+    background-color: blue;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.article.article1:hover {
+    background-color: lightgreen; /* 첫번째 아티클은 배경색이 바뀜 */
+}
+
+.article.article2:hover {
+    color: red; /* 두번째 아티클은 글자색이 바뀜 */
+}
+
+.article.article3:hover {
+    background-color: yellow;
+    color: green; /* 세번째 아티클은 배경색과 글자색이 모두 바뀜 */
+}
+
+/* For mobile devices */
+@media screen and (max-width: 600px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .aside {
+        flex: none;
+    }
+}

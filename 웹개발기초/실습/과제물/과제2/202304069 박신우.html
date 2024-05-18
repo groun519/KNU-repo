@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>onclick</title>
+<style>
+input[type="button"] {
+    width: 50px; 
+    height: 30px; 
+}
+</style>
+<script>
+function add(value) {
+	let exp = document.getElementById("exp");
+	if (exp.value == '0') {
+		exp.value = value;
+	} else {
+		exp.value += value;
+	}
+}
+
+function back() {
+	let exp = document.getElementById("exp");
+	if (exp.value.length == 1) {
+		exp.value = '0';
+	} else {
+		exp.value = exp.value.slice(0, -1);
+	}
+}
+
+function clearE() {
+	let exp = document.getElementById("exp");
+	exp.value = '0';
+}
+
+function calculate() {
+	let exp = document.getElementById("exp");
+	exp.value = eval(exp.value);
+}
+</script>
+</head>
+<body >
+<h3> 계산기 만들기</h3>
+<hr>
+<form>
+<input type="text" id="exp" value="0">
+<br>
+<input type="button" value=" Back  "
+		onclick="back()">
+<input type="button" value=" CE  "
+		onclick="clearE()">
+<input type="button" value=" C  "
+		onclick="clearE()">
+<input type="button" value=" =  "
+		onclick="calculate()">
+<br>
+<input type="button" value=" 7  "
+		onclick="add('7')">
+<input type="button" value=" 8  "
+		onclick="add('8')">
+<input type="button" value=" 9  "
+		onclick="add('9')">
+<input type="button" value=" /  "
+		onclick="add('/')">
+<br>
+<input type="button" value=" 4  "
+		onclick="add('4')">
+<input type="button" value=" 5  "
+		onclick="add('5')">
+<input type="button" value=" 6  "
+		onclick="add('6')">
+<input type="button" value=" *  "
+		onclick="add('*')">
+<br>
+<input type="button" value=" 1  "
+		onclick="add('1')">
+<input type="button" value=" 2  "
+		onclick="add('2')">
+<input type="button" value=" 3  "
+		onclick="add('3')">
+<input type="button" value=" -  "
+		onclick="add('-')">
+<br>
+<input type="button" value=" 0  "
+		onclick="add('0')">
+<input type="button" value=" +  "
+		onclick="add('+')">
+<input type="button" value=" None  ">
+<input type="button" value=" None  ">
+</form>
+</body>
+</html>

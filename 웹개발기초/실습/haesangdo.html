@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>onclick</title>
+<script>
+    function func() {
+        alert(screen.height);
+        alert(screen.width);
+
+        if (screen.height < 1280 && screen.width < 1024) {
+            alert("스크린 해상도가 낮습니다.");
+        } else {
+            // Uncomment this if you want an alert for good resolution
+            // alert("스크린 해상도가 좋습니다.");
+        }
+    }
+
+    function displayResolution() {
+        document.getElementById('resolution').innerText = `해상도: ${screen.height} x ${screen.width}`;
+    }
+</script>
+</head>
+<body onload="func(); displayResolution();">
+<h3>해상도</h3>
+<hr>
+<div id="resolution"></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>문제 6</title>
+
+<script>
+
+	function Trans(){
+		let w = 100;
+		let b = false;
+
+		if(b){
+			while(w < 200){
+				w++ * DocumentTimeline;
+			}
+			b = !b;
+		}
+		else{
+			while(w > 100){
+				w-- * DocumentTimeline;
+			}
+			b = !b;
+		}
+
+		$('img').attr({
+		width : w,
+		height : w 
+		})
+	}
+
+</script>
+
+</head>
+<body>
+
+<canvas id="myCanvas"
+	width="300" height="250"></canvas>
+
+<script src="http://code.jquery.com/jquery-3.6.4.js">
+
+	var canvas = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
+
+	var img = new Image();
+
+	img.onload = function(){
+		context.drawImage(img, 0, 0, 100, 100);
+	}
+	img.src = "test.png";
+	
+</script>
+
+<input type="button" value="시작"
+	onclick="Trans()">
+
+</body>
+</html>

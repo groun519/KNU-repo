@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>문제 7</title>
+
+<script src="http://code.jquery.com/jquery-3.6.4.js">
+
+	function RandPng(){
+		let randN = Range(1, 4);
+
+		var img = new Image();
+
+		var canvas = document.getElementById("myCanvas");
+		var context = canvas.getContext("2d");
+
+		img.onload = function(){
+			context.drawImage(img, 0, 0, 100, 100);
+		}
+
+		switch(randN){
+			case 1:
+				$('img').attr('src', 'media/00.png');
+			case 2:
+				$('img').attr('src', 'media/01.png');
+			case 3:
+				$('img').attr('src', 'media/02.png');
+			case 4:
+				$('img').attr('src', 'media/03.png');
+		}
+	}
+
+
+	
+</script></head>
+<body>
+
+<input type="button" value="시작"
+	onclick="RandPng()">
+
+</body>
+</html>

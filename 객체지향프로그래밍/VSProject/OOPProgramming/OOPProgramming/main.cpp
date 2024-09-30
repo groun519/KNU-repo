@@ -1,14 +1,25 @@
 #include <iostream>
-#include "Ram.h"
+#include "Circle.h"
 
 using namespace std;
 
 int main()
 {
-    Ram ram;
-    ram.write(100, 20);
-    ram.write(101, 30);
-    char res = ram.read(100) + ram.read(101);
-    ram.write(102, res);
-    cout << "102 번지의 값 = " << (int)ram.read(102) << endl;
+    Circle circleArray[3]; // (1) Circle 객체 배열 생성
+    // 배열의 각 원소 객체의 멤버 접근
+    circleArray[0].setRadius(10); // (2)
+    circleArray[1].setRadius(20);
+    circleArray[2].setRadius(30);
+
+    for (int i = 0; i < 3; i++) // 배열의 각 원소 객체의 멤버 접근
+        cout << "Circle " << i << "의 면적은 " << circleArray[i].getArea() << endl;
+    
+    Circle* p; // (3)
+    p = circleArray; // (4)
+    for (int i = 0; i < 3; i++)
+    { // 객체 포인터로 배열 접근
+        cout << "Circle " << i << "의 면적은 " << p->getArea() << endl;
+        p++; // (5)
+    }
+
 }

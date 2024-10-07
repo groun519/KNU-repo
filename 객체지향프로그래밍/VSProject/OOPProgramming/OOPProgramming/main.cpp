@@ -22,4 +22,6 @@ int main()
         p++; // (5)
     }
 
+    int aa = 3, bb = 5;
+    swap(&aa, &bb);
 }

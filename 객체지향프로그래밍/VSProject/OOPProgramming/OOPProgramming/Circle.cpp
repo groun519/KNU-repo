@@ -25,3 +25,10 @@ double Circle::getArea()
 {
 	return 3.14 * radius * radius;
 }
+
+void Circle::swap(int *a, int *b)
+{
+	int temp = *a;
+	*a = *b; 
+	*b = temp;
+}
